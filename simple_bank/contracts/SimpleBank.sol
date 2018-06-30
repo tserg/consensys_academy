@@ -1,4 +1,5 @@
 pragma solidity ^0.4.13;
+
 contract SimpleBank {
 
     /* Fill in the keyword. Hint: We want to protect our users balance from other contracts*/
@@ -9,10 +10,10 @@ contract SimpleBank {
 
     // Events - publicize actions to external listeners
     /* Add 2 arguments for this event, an accountAddress and an amount */
-    event LogDepositMade(address _accountAddress, uint _amount);
+    event LogDepositMade(address accountAddress, uint amount);
 
     // Constructor, can receive one or many variables here; only one allowed
-    function SimpleBank() {
+    constructor() {
         /* Set the owner to the creator of this contract */
         owner = msg.sender;
     }
@@ -22,7 +23,7 @@ contract SimpleBank {
     function enroll() public returns (uint){
 
       /* Set the sender's balance to 1000, return the sender's balance */
-      require(balances[msg.sender] == 0);
+
       balances[msg.sender] = 1000; 
       return balances[msg.sender];
 
@@ -31,12 +32,12 @@ contract SimpleBank {
     /// @notice Deposit ether into bank
     /// @return The balance of the user after the deposit is made
     // Add the appropriate keyword so that this function can receive ether
-    function deposit(uint _depositAmount) public returns (uint) {
+    function deposit() public payable returns (uint) {
         /* Add the amount to the user's balance, call the event associated with a deposit,
           then return the balance of the user */
-    	require(balances[msg.sender] != 0);
-    	balances[msg.sender] += _depositAmount;
-    	emit LogDepositMade(msg.sender, _depositAmount);
+
+    	balances[msg.sender] += msg.value;
+    	emit LogDepositMade(msg.sender, msg.value);
     	return balances[msg.sender];
 
     }
@@ -52,9 +53,13 @@ contract SimpleBank {
            return the user's balance.*/
 
     	require(balances[msg.sender] >= withdrawAmount);
-    	balances[msg.sender] -= withdrawAmount;
-
-
+        balances[msg.sender] -= withdrawAmount;
+    	if (msg.sender.send(withdrawAmount)) {
+            
+        } else {
+            balances[msg.sender] += withdrawAmount;
+        }
+    	
     	remainingBal = balances[msg.sender];
 
     }
