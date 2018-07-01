@@ -4,7 +4,16 @@
 
 The code in this repository is written in fulfilment of the course requirements.
 
+To run the code, start your development blockchain, configure truffle.js, and run the following in truffle:
+
+```
+truffle.cmd compile
+truffle.cmd test
+```
+
 ### Exercise 1: Simple Bank
+
+Status: Completed
 
 Functions:
 - enroll
@@ -13,3 +22,11 @@ Functions:
 
 ### Exercise 2: Supply Chain
 
+Status: Completed
+
+Functions
+- addItem
+- buyItem
+- shipItem
+- receiveItem
+- fetchItem
