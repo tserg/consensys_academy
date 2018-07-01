@@ -23,7 +23,7 @@ contract SupplyChain {
     (declaring them in this order is important for testing)
   */
 
-  enum State { ForSale, Sold, Shipped, Received }
+  enum State {ForSale, Sold, Shipped, Received}
 
   /* Create a struct named Item.
     Here, add a name, sku, price, state, seller, and buyer
@@ -43,10 +43,10 @@ contract SupplyChain {
   /* Create 4 events with the same name as each possible State (see above)
     Each event should accept one argument, the sku*/
 
-    event ForSale(uint _sku);
-    event Sold(uint _sku);
-    event Shipped(uint _sku);
-    event Received(uint _sku);
+    event ForSale(uint sku);
+    event Sold(uint sku);
+    event Shipped(uint sku);
+    event Received(uint sku);
 
 /* Create a modifer that checks if the msg.sender is the owner of the contract */
 
